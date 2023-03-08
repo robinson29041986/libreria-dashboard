@@ -1,0 +1,964 @@
+/* 
+ * Versión: 1.0
+ * Autor:  Robinson Sthig Rodriguez
+ * Licencia: Copyright © 2023 Book Shop. All Rights Reserved. 
+*/
+
+/* FIXME: Crear una tabla de contenido */
+
+/* ==========================================================================
+1.Estilos globales
+========================================================================== */
+
+:root {
+  /* Colores */
+  --global--color-primary: #0c804f;
+  --global--color-secondary: #49b6ff;
+  --global--color-text: #6a707f;
+  --global--color-error: #f76d6d;
+  --global--color-warning: #ffd86f;
+  --global--color-succes: #2151ec;
+  ;
+  --global--color-links: #4c5469;
+  --global--color-black: #0f0f0f;
+  --global--color-white: #FFFFFF;
+  --global--color-background: #f8fafc;
+
+  /* Tipografía */
+  --global--font-primary: Inter, sans-serif;
+  --global--font-secondary: Arial, sans-serif;
+}
+
+/* Ajustes tipográficos */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: var(--global--color-black);
+  font-weight: 700;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 3.052rem;
+}
+
+h2 {
+  font-size: 2.441rem;
+}
+
+h3 {
+  font-size: 1.953rem;
+}
+
+h4 {
+  font-size: 1.563rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+small,
+.text_small {
+  font-size: 0.8rem;
+}
+
+/* Color de selección de texto */
+::-moz-selection {
+  background-color: var(--global--color-primary);
+  color: var(--global--color-white);
+}
+
+::selection {
+  background-color: var(--global--color-primary);
+  color: var(--global--color-white);
+}
+
+/* ==========================================================================
+2. Modo oscuro
+========================================================================== */
+/* @media (prefers-color-scheme: dark) {
+    :root {
+        --global--color-text: #686b73;
+        --global--color-links: #686b73;
+        --global--color-black: #e8e8e8;
+        --global--color-white: #222;
+        --global--color-background: #0f0f0f;
+    }
+} */
+
+/* ==========================================================================
+3. CSS reset
+========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  /*     border: 0; */
+  box-sizing: border-box;
+  vertical-align: baseline;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: var(--global--font-primary);
+  color: var(--global--color-text);
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+p a {
+  display: inline;
+}
+
+li {
+  list-style-type: none;
+}
+
+/* Evitamos problemas con las imagenes */
+img,
+picture,
+video,
+iframe,
+figure {
+  max-width: 100%;
+  /*     width: 100%; */
+  display: block;
+  /* opcional */
+  -o-object-fit: cover;
+  object-fit: cover;
+  /* opcional */
+  -o-object-position: center center;
+  object-position: center center;
+}
+
+/* Nivelamos problemas de tipografías y colocación de formularios */
+form,
+input,
+textarea,
+select,
+button,
+label {
+  font-family: inherit;
+  font-size: inherit;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  background-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: auto;
+}
+
+/* Reseteamos las tablas */
+table,
+tr,
+td {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ==========================================================================
+4. Clases utilitarias
+========================================================================== */
+
+/* Contenedor */
+.container {
+  margin: auto;
+  max-width: 1120px;
+  padding: 0px 20px;
+}
+
+/* .persist_loading {
+  position: fixed;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1b1f3b;
+  font-weight: 500;
+} */
+
+/* Sección */
+.section-pd {
+  background-color: var(--global--color-background);
+  padding: 40px 0px;
+}
+
+/* Títulos y subtitulos */
+.display {
+  font-size: 1.953rem;
+  color: var(--global--color-black);
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.subheading {
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+/* ==========================================================================
+5. Botones
+========================================================================== */
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 0px;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: bold;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--global--color-primary);
+  color: var(--global--color-black);
+  border: 1px solid var(--global--color-primary);
+  border-radius: 12px;
+}
+
+.btn-secondary {
+  border: none;
+}
+
+.btn-warning {
+  background-color: var(--global--color-error);
+  color: #fff;
+  border: 1px solid var(--global--color-error);
+  border-radius: 12px;
+}
+
+.btn_logout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  margin: 8px;
+  border-radius: 4px;
+  transition: 0.4s;
+  width: 90%;
+  color: #ea3b3b;
+  line-height: 1.6;
+  border: 0px;
+  cursor: pointer;
+}
+
+.btn_logout:hover {
+  background-color: #fef0f0;
+}
+
+/* ==========================================================================
+6. Formularios 
+========================================================================== */
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+  font-size: 0.8rem;
+}
+
+.instructions {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.errmsg {
+  font-size: 0.8rem;
+  color: #f76d6d;
+  margin-top: -12px;
+  transition: 0.4s;
+}
+
+input {
+  background-color: var(--global--color-white);
+  font-family: inherit;
+  font-size: 16px;
+  padding: 12px 16px;
+  border: 1px solid #d0d4db;
+  border-radius: 8px;
+  outline: none;
+}
+
+/* ==========================================================================
+7. Tarjetas
+========================================================================== */
+
+.card {
+  background-color: #fff;
+  box-shadow: rgb(0 0 0 / 12%) 0px 2px 6px 0px;
+  border: 1px solid #e6edf4 !important;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+7. Tablas
+========================================================================== */
+
+.table_list {
+  width: 100%;
+}
+
+/* .table_list tbody tr:hover {
+    background-color: var(--global--color-background);
+    transition: all 0.4s ease;
+} */
+
+.table_list thead tr {
+  background-color: var(--global--color-background);
+  font-size: 0.8rem;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.table_list th {
+  font-weight: 400;
+  padding: 15px 32px;
+}
+
+.table_list tbody tr {
+  border-bottom: 1px solid #e6edf4;
+}
+
+.table_list td {
+  color: var(--global--color-links);
+  padding: 15px 32px;
+}
+
+.table_actions {
+  display: flex;
+}
+
+.table_name {
+  font-weight: 500;
+}
+
+.table_icon {
+  width: 20px;
+  height: 20px;
+  color: #27c281;
+  margin: 0px 8px;
+  cursor: pointer;
+}
+
+.table_icon--del {
+  color: var(--global--color-error);
+}
+
+/* ==========================================================================
+8. Modal
+========================================================================== */
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  animation: FadeIn 0.4s ease 0s 1 normal forwards;
+}
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.modal_box {
+  background-color: var(--global--color-white);
+  width: fit-content;
+  min-width: 300px;
+  max-width: 90vw;
+  border: 1px solid #e6edf4 !important;
+  border-radius: 16px;
+  top: 50%;
+  left: 50%;
+  box-shadow: rgb(0 0 0 / 12%) 0px 0px 15px -3px;
+  overflow: hidden;
+  position: relative;
+  z-index: 99;
+  transform: translate(-50%, -50%);
+}
+
+.modal_header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e6edf4;
+}
+
+.modal_icon {
+  background-color: var(--global--color-background);
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  color: var(--global--color-error);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal_content {
+  padding: 16px 24px;
+}
+
+.modal_buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px 0px;
+}
+
+/* ==========================================================================
+9. Header
+========================================================================== */
+.header {
+  background-color: var(--global--color-white);
+  padding: 20px 0px;
+  box-shadow: rgb(0 0 0 / 12%) 0px 2px 6px 0px;
+  border-bottom: 1px solid #e6edf4;
+  color: var(--global--color-links)
+}
+
+.header .active {
+  color: #1b1f3b;
+}
+
+.header_row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header_logo {
+  width: 70px;
+  height: auto;
+}
+
+.header_ul {
+  display: flex;
+  align-items: center;
+}
+
+.header_li {
+  padding: 5px;
+  margin: 5px 10px;
+  transition: 0.4s;
+}
+
+.header_li:hover {
+  color: #1b1f3b;
+}
+
+.header_hr {
+  border-width: 0px 0px thin;
+  border-color: #e6edf4;
+  border-style: solid;
+}
+
+.header_column {
+  display: flex;
+  align-items: center;
+}
+
+.header_column-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 2;
+}
+
+.header_column-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.header_nav {
+  margin-left: 50px;
+}
+
+.header_navlink {
+  display: flex;
+  align-items: center;
+}
+
+.header_navlink-popup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  margin: 8px;
+  border-radius: 4px;
+  transition: 0.4s;
+}
+
+.header_navlink-popup:hover {
+  background-color: var(--global--color-background);
+  color: #1b1f3b;
+}
+
+.header_icon {
+  width: 20px;
+  height: 20px;
+}
+
+.header_icon-nav {
+  margin-right: 8px;
+}
+
+.header_notification {
+  display: flex;
+  height: 20px;
+}
+
+.header_icon--notification {
+  position: relative;
+  top: 0px;
+  right: 3px;
+  background-color: var(--global--color-primary);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.header_usernav {
+  position: relative;
+  cursor: pointer;
+}
+
+.header_usernav-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+}
+
+.header_popup {
+  background-color: var(--global--color-white);
+  width: 160px;
+  position: absolute;
+  top: 50px;
+  right: 0px;
+  box-shadow: rgb(0 0 0 / 12%) 0px 2px 6px 0px;
+  border-radius: 8px;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 0;
+}
+
+.header_popup.isActive {
+  z-index: 99;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.4s ease;
+}
+
+/* Header responsive */
+@media screen and (max-width: 992px) {
+  .header_nav {
+    display: none;
+  }
+
+  .header_logo {
+    width: 80px;
+    height: auto;
+  }
+
+  .header_usernav-img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .header_popup {
+    top: 40px;
+  }
+}
+
+/* ==========================================================================
+9. Footer
+========================================================================== */
+
+.footer {
+  background-color: var(--global--color-background);
+}
+
+.footer_credits {
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: bolder;
+  justify-content: space-between;
+  padding: 24px 0px;
+  border-top: 1px solid #e6edf4;
+}
+
+/* ==========================================================================
+10. Categories
+========================================================================== */
+
+.categories_options {
+  display: flex;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.categories_header {
+  padding: 15px 32px;
+}
+
+.categories_message {
+  padding: 32px 32px;
+  border-top: 1px solid #e6edf4;
+}
+
+/* ==========================================================================
+11. Productos
+=============================================================================*/
+
+.products_options {
+  display: flex;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.products_header {
+  padding: 15px 32px;
+}
+
+.products_message {
+  padding: 32px 32px;
+  border-top: 1px solid #e6edf4;
+}
+
+/* ========================================================================
+12.Login
+===========================================================================*/
+
+.login {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  background-color: #f8fafc;
+  padding: 40px 0px;
+  height: 100vh;
+}
+
+.login_wrapper {
+  width: 400px;
+  padding: 56px 40px;
+  margin: auto;
+  background-color: #fff;
+  box-shadow: rgb(0 0 0 / 12%) 0px 2px 6px 0px;
+  border-bottom: 1px solid #e6edf4;
+  border-radius: 16px;
+}
+
+.login_logo {
+  width: 80px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.login_logo a {
+  display: inline-block;
+}
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.login_form input {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 12px 16px;
+  border: 1px solid #d0d4db;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  outline: none;
+}
+
+.login_form button {
+  margin-top: 16px;
+}
+
+.login_form a {
+  font-size: 14px;
+  text-align: center;
+  color: var(--global--color-primary);
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .login_wrapper {
+    width: 320px;
+  }
+}
+
+/* =========================================================================
+13. Register
+============================================================================*/
+
+.register {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  background-color: #f8fafc;
+  padding: 100px 0px;
+}
+
+.register_wrapper {
+  width: 400px;
+  padding: 56px 40px;
+  margin: auto;
+  background-color: #fff;
+  box-shadow: rgb(0 0 0 / 12%) 0px 2px 6px 0px;
+  border-bottom: 1px solid #e6edf4;
+  border-radius: 16px;
+}
+
+.register_logo {
+  width: 80px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.register-logo a {
+  display: inline-block;
+}
+
+.register_form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.register_form input {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 12px 16px;
+  border: 1px solid #d0d4db;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  outline: none;
+}
+
+.register_form button {
+  margin-top: 16px;
+}
+
+.register_form a {
+  font-size: 14px;
+  text-align: center;
+  color: var(--global--color-primary);
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .register_wrapper {
+    width: 320px;
+  }
+}
+
+/* ===========================================================================
+14.Not Found
+==============================================================================*/
+
+.notfound {
+  background-color: #f8fafc;
+  padding: 40px 0px;
+}
+
+.notfound_wrapper {
+  display: flex;
+  height: 88vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.notfound_h1 {
+  font-size: 1.953rem;
+  text-align: center;
+}
+
+.notfound_txt {
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* ===========================================================================
+15.New Product
+==============================================================================*/
+
+.newproduct {
+  min-height: 85vh;
+  background-color: #f8fafc;
+  padding: 48px 0px;
+}
+
+.newproduct-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.nemproduct-widget {
+  background-color: #fff;
+  padding: 72px;
+  box-shadow: rgb(0 0 0 / 12%) 0px 2px 6px 0px;
+  border: 1px solid #e6edf4 !important;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.newproduct-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.newproduct-form label {
+  color: #1b1f3b;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.newproduct-form input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: var(--global--color-primary);
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+}
+
+.newproduct-form input,
+textarea {
+  padding: 12px 16px;
+  border: 1px solid #d0d4db;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  outline: none;
+}
+
+.newproduct-form select {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 12px 16px;
+  border: 1px solid #d0d4db;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  outline: none;
+  cursor: pointer;
+}
+
+.newproduct-form button {
+  margin-top: 24px;
+}
+
+/* ===========================================================================
+17.New Category
+==============================================================================*/
+
+.newcategory {
+  min-height: 85vh;
+  background-color: #f8fafc;
+  padding: 48px 0px;
+}
+
+.newcategory-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.newcategory-widget {
+  background-color: #fff;
+  padding: 72px;
+  box-shadow: rgb(0 0 0 / 12%) 0px 2px 6px 0px;
+  border: 1px solid #e6edf4 !important;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.newcategory-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.newcategory-form label {
+  color: #1b1f3b;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.newcategory-form input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: var(--global--color-primary);
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+}
+
+.newcategory-form input,
+textarea {
+  padding: 12px 16px;
+  border: 1px solid #d0d4db;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  outline: none;
+}
+
+.newcategory-form select {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 12px 16px;
+  border: 1px solid #d0d4db;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  outline: none;
+  cursor: pointer;
+}
+
+.newcategory-form button {
+  margin-top: 24px;
+}

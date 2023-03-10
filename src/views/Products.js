@@ -8,8 +8,8 @@ const PRODUCTS_URL = '/products';
 
 
 const Products = () => {
-  const [products, setProducts] = useState();
-  const [search, setSearch] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState('');
 
   const getProducts = async () => {
     try {
@@ -72,12 +72,11 @@ const Products = () => {
                     <th>ID</th>
                     {/*  <th>Image</th> */}
                     <th>Nombre</th>
-                    <th>Descripcion</th>
+                    <th>Categoria</th>
                     <th>Autor</th>
                     <th>Isbn</th>
                     <th>Precio</th>
                     <th>Stock</th>
-                    <th>Categoria</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -93,7 +92,6 @@ const Products = () => {
                         {/* <td> <img src={products.Image} alt={products.name} /></td> */}
                         <td className='table_name'>{products.name}</td>
                         <td>{products.category.name}</td>
-                        <td>{products.price}</td>
                         <td>{products.autor}</td>
                         <td>{products.isbn}</td>
                         <td>{products.price}</td>

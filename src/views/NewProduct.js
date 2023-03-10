@@ -17,11 +17,6 @@ const AddProduct = () => {
   const [isbn, setIsbn] = useState('');
   const [stock, setStock] = useState('');
 
-  console.log(name)
-  console.log(stock)
-  console.log(price)
-  console.log(category)
-
   useEffect(() => {
     /* Obtenemos las categorías */
     const getCategories = async () => {

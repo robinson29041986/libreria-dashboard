@@ -9,7 +9,6 @@ import NotFound from './views/NotFound';
 import Login from './views/Login';
 import Register from './views/Register';
 import Categories from './views/Categories';
-import NewCategory from './views/NewCategory';
 
 const App = () => {
   return (
@@ -20,7 +19,6 @@ const App = () => {
           <Route path='products' element={<Products />} />
           <Route path='products/new' element={<NewProduct />} />
           <Route path='categories' element={<Categories />} />
-          <Route path='categories/new' element={<NewCategory />} />
         </Route>
       </Route>
       <Route path='login' element={<Login />} />

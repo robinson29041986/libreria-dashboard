@@ -30,7 +30,7 @@ const ReusableForm = (props) => {
   return (
     <form onSubmit={handleSubmit}>
       {props.fields.map(field => (
-        <div key={field.name}>
+        <div className='x' key={field.name}>
           <label htmlFor={field.name}>{field.label}</label>
           <input
             type={field.type}

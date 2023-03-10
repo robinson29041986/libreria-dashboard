@@ -4,11 +4,13 @@ import axios from '../api/axios';
 import { Edit2, Trash2 } from '@easy-eva-icons/react';
 import { Link } from 'react-router-dom';
 import ConfirmationModal from '../components/ConfirmationModal';
+import ReusableForm from '../components/ReusableForm';
 
 const CATEGORIES_URL = '/categories/';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
+  const [deleteTitle, setDeleteTitle] = useState('');
   const [search, setSearch] = useState('');
   const [categoryId, setCategoryId] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -28,6 +30,15 @@ const Categories = () => {
     /* Llamamos la función */
     getCategories();
   }, []);
+
+  const handleSubmitSuccess = (response) => {
+    console.log('Form submission succeeded:', response);
+  };
+
+  const handleSubmitError = (error) => {
+    console.error('Form submission error:', error);
+  };
+
 
   const handleClose = () => {
     setShowModal(false);
@@ -52,8 +63,9 @@ const Categories = () => {
     setShowModal(false);
   }
 
-  const handleDelete = (id) => {
+  const handleDelete = (id, title) => {
     setCategoryId(id);
+    setDeleteTitle(title);
     setShowModal(true);
   }
 
@@ -73,17 +85,18 @@ const Categories = () => {
           <Link to='/categories/new' className='btn btn-primary'> +Crear Nueva Categoria</Link>
         </div>
         <div className='card'>
-          {showModal && (<ConfirmationModal
-
-            title="Eliminar Categoria"
-            message="¿Desea Eliminar la Categoria Seleccionada?"
-            onClose={handleClose}
-            onConfirm={handleConfirm}
-            onCancel={handleCancel}
-          />)}
-
           <div className='categories_header'>
             <h2 className='title'>Lista de Categorias</h2>
+            <ReusableForm
+              fields={[
+                { name: 'name', label: 'Nombre', type: 'text' },
+                { name: 'description', label: 'Descripción', type: 'textarea' }
+              ]}
+              submitUrl={CATEGORIES_URL}
+              onSubmitSuccess={handleSubmitSuccess}
+              onSubmitError={handleSubmitError}
+              btnTitle="Confirmar"
+            />
           </div>
           {
             !categories || categories.length <= 0 ? (
@@ -116,7 +129,7 @@ const Categories = () => {
                             <Edit2 className='table_icon' />
                           </Link>
                           <Trash2 className='table_icon table_icon--del'
-                            onClick={() => handleDelete(categories.id)} />
+                            onClick={() => handleDelete(categories.id, categories.name)} />
                         </td>
                       </tr>
                     ))
@@ -127,6 +140,15 @@ const Categories = () => {
           }
         </div>
       </div>
+      {showModal && (<ConfirmationModal
+
+        title='Confirmar eliminacion'
+        message={`¿Desea Eliminar la Categoria ${deleteTitle}?`}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+
+      />)}
     </section>
   );
 }

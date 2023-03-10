@@ -4,16 +4,20 @@ import axios from '../api/axios';
 import { Edit2, Trash2 } from '@easy-eva-icons/react';
 import { Link } from 'react-router-dom';
 import ConfirmationModal from '../components/ConfirmationModal';
-import ReusableForm from '../components/ReusableForm';
+/* import ReusableForm from '../components/ReusableForm'; */
+import ModalForm from '../components/ModalForm'
 
 const CATEGORIES_URL = '/categories/';
 
 const Categories = () => {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [categories, setCategories] = useState([]);
   const [deleteTitle, setDeleteTitle] = useState('');
   const [search, setSearch] = useState('');
   const [categoryId, setCategoryId] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [viewModal, setViewModal] = useState(false);
 
   useEffect(() => {
     /* Obtiene todas las categorías */
@@ -31,17 +35,51 @@ const Categories = () => {
     getCategories();
   }, []);
 
-  const handleSubmitSuccess = (response) => {
-    console.log('Form submission succeeded:', response);
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleSubmitError = (error) => {
-    console.error('Form submission error:', error);
-  };
+    try {
+      const response = await axios.post(CATEGORIES_URL,
+        JSON.stringify({ name, description }),
+        {
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          withCredentials: true
+        }
+      );
+
+      /* Vemos la respuesta del servidor */
+      console.log(response);
+
+      if (response?.status === 200) {
+        setViewModal(false);
+        const resp = await axios.get(CATEGORIES_URL);
+        setCategories(resp.data)
+      }
+
+      /* Limpiamos el formulario */
+      setName('');
+      setDescription('');
+
+    } catch (error) {
+      console.log(error);
+      if (!error?.response) {
+        /* Aqui no se ha puesto los errores */
+        console.log('Error', error.response);
+      }
+    }
+  }
+
+  const handleCreate = () => {
+    setViewModal(true);
+  }
 
 
   const handleClose = () => {
     setShowModal(false);
+  }
+
+  const handleCancelCreate = () => {
+    setViewModal(false);
   }
 
   const handleConfirm = async () => {
@@ -82,21 +120,11 @@ const Categories = () => {
               placeholder="Buscar..."
             />
           </form>
-          <Link to='/categories/new' className='btn btn-primary'> +Crear Nueva Categoria</Link>
+          <button to='/categories/new' className='btn btn-primary' onClick={handleCreate}> +Crear Nueva Categoria</button>
         </div>
         <div className='card'>
           <div className='categories_header'>
             <h2 className='title'>Lista de Categorias</h2>
-            <ReusableForm
-              fields={[
-                { name: 'name', label: 'Nombre', type: 'text' },
-                { name: 'description', label: 'Descripción', type: 'textarea' }
-              ]}
-              submitUrl={CATEGORIES_URL}
-              onSubmitSuccess={handleSubmitSuccess}
-              onSubmitError={handleSubmitError}
-              btnTitle="Confirmar"
-            />
           </div>
           {
             !categories || categories.length <= 0 ? (
@@ -140,15 +168,39 @@ const Categories = () => {
           }
         </div>
       </div>
-      {showModal && (<ConfirmationModal
+      {viewModal && (
+        <ModalForm title='Crear Categoria' onClose={handleCancelCreate}>
+          <form onSubmit={handleSubmit} className="newcategory-form">
+            <label htmlFor='name'>Nombre</label>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              id="name"
+              placeholder='Nombre'
+            />
+            <label htmlFor='description'>Descripción</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              id='description'
+              rows="5" cols="33"
+              placeholder='Descripción'
+            />
+            <button type="submit" className="btn btn-primary">Aceptar</button>
+          </form>
+        </ModalForm>
+      )}
+      {showModal && (
+        <ConfirmationModal
 
-        title='Confirmar eliminacion'
-        message={`¿Desea Eliminar la Categoria ${deleteTitle}?`}
-        onClose={handleClose}
-        onConfirm={handleConfirm}
-        onCancel={handleCancel}
+          title='Confirmar eliminacion'
+          message={`¿Desea Eliminar la Categoria ${deleteTitle}?`}
+          onClose={handleClose}
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
 
-      />)}
+        />)}
     </section>
   );
 }

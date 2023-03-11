@@ -17,6 +17,9 @@ const Register = () => {
   const [name, setName] = useState('');
   const [validName, setValidName] = useState(false);
 
+  const [card, setCard] = useState('');
+  console.log(card);
+
   const [email, setEmail] = useState('');
   const [validEmail, setValidEmail] = useState(false);
 
@@ -46,7 +49,7 @@ const Register = () => {
   /* Mensaje de error */
   useEffect(() => {
     setErrMsg('');
-  }, [name, email, pwd, matchPwd])
+  }, [card, name, email, pwd, matchPwd])
 
   /* Función del envío del formulario */
   const handleSubmit = async (e) => {
@@ -54,7 +57,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await axios.post(REGISTER_URL,
-        JSON.stringify({ name, email, password: pwd }),
+        JSON.stringify({ card, name, email, password: pwd }),
         {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: false
@@ -65,6 +68,7 @@ const Register = () => {
 
       /* Limpiamos los datos */
       setName('');
+      setCard('');
       setEmail('');
       setPwd('');
       setMatchPwd('');
@@ -112,6 +116,16 @@ const Register = () => {
                 required
                 aria-invalid={validName ? "false" : "true"}
                 aria-describedby="namenote"
+              />
+              <input
+                value={card}
+                onChange={(e) => setCard(e.target.value)}
+                type="number"
+                /* autoComplete="none" */
+                placeholder="Cedula"
+                id="card"
+                required
+                aria-describedby="cardnote"
               />
               <p id="emailnote" className={email && !validEmail ? "instructions" : "offscreen"}>
                 Escriba un correo válido.

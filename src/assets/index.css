@@ -419,7 +419,7 @@ input {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 24px 40px;
+  padding: 16px 32px;
   border-bottom: 1px solid #e6edf4;
 }
 
@@ -434,7 +434,7 @@ input {
 }
 
 .modal_content {
-  padding: 40px;
+  padding: 24px 32px;
 }
 
 .modal_buttons {

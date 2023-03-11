@@ -1,8 +1,6 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import AuthContext from "../context/AuthProvider";
-import { useContext } from "react";
-import '../assets/index.css';
+import useLogout from "../hooks/useLogout";
 import {
   People,
   Cube,
@@ -37,14 +35,13 @@ const NavBar = () => {
     }
   });
 
-  const { setAuth } = useContext(AuthContext);
+  /* Función para cerrar sesión */
   const navigate = useNavigate();
+  const logout = useLogout();
 
-  const logout = async () => {
-    // if used in more components, this should be in context 
-    // axios to /logout endpoint 
-    setAuth({});
-    navigate('/home');
+  const signOut = async () => {
+    await logout();
+    navigate('/login');
   }
 
 
@@ -64,17 +61,17 @@ const NavBar = () => {
                 <NavLink to="/products" className="header_nav--link"><Cube className="header_icon header_icon--nav" />Productos</NavLink>
               </li>
               <li className="header_li">
-                <NavLink to="/clientes" className="header_nav--link"><People className="header_icon header_icon--nav" />Usuarios</NavLink>
+                <NavLink to="/users" className="header_nav--link"><People className="header_icon header_icon--nav" />Usuarios</NavLink>
               </li>
               <li className="header_li">
-                <NavLink to="/inventario" className="header_nav--link"><ShoppingBag className="header_icon header_icon--nav" />Pedidos</NavLink>
+                <NavLink to="/orders" className="header_nav--link"><ShoppingBag className="header_icon header_icon--nav" />Pedidos</NavLink>
               </li>
             </ul>
           </nav>
         </div>
         <div className="header_column-right">
           <div className="header_notification">
-            <NavLink to="/notifications">
+            <NavLink to="/notification">
               <Bell className="header_icon" />
             </NavLink>
             <div className="header_icon--notification"></div>
@@ -83,14 +80,14 @@ const NavBar = () => {
             <img className="header_usernav-img" src={Avatar} alt="Avatar"></img>
             <ul className={`header_popup ${open ? 'isActive' : ''}`}>
               <li className="header_popup--li">
-                <NavLink to="/perfil" className="header_navlink-popup"> <Person className="header_icon" />Perfil</NavLink>
+                <NavLink to="/profile" className="header_navlink-popup"> <Person className="header_icon" />Perfil</NavLink>
               </li>
               <li className="header_popup--li">
-                <NavLink to="/ajustes" className="header_navlink-popup"> <Settings className="header_icon" />Ajustes</NavLink>
+                <NavLink to="/settings" className="header_navlink-popup"> <Settings className="header_icon" />Ajustes</NavLink>
               </li>
               <hr className="header_hr" />
               <li className="header_popup--li">
-                <button className="btn_logout" onClick={logout}><LogOut className="header_icon" />Salir</button>
+                <button className="btn_logout" onClick={signOut}><LogOut className="header_icon" />Salir</button>
               </li>
             </ul>
           </div>

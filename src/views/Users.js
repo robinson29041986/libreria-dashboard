@@ -168,7 +168,6 @@ const Users = () => {
     setPassword('');
   }
 
-  /* Muestra el modal y guarda el id de la categoría */
   const handleDelete = (id, name) => {
     setUserId(id);
     setName(name);
@@ -203,6 +202,7 @@ const Users = () => {
               <table className='table_list'>
                 <thead>
                   <tr>
+                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Correo</th>
                     <th>Rol</th>
@@ -217,9 +217,10 @@ const Users = () => {
                         : user.name.toLowerCase().includes(search);
                     }).map((users, index) => (
                       <tr key={index}>
+                        <td>{users.id}</td>
                         <td className='table_name'>{users.name}</td>
                         <td>{users.email}</td>
-                        {/* <td>{users.role.name}</td> */}
+                        {/*  <td>{users.role.name}</td> */}
                         <td className='table_actions'>
                           <Edit2 className='table_icon'
                             onClick={() => handleEdit(
@@ -254,7 +255,7 @@ const Users = () => {
               required
             />
             <label htmlFor='roles'>Rol</label>
-            <select onChange={(e) => setRole(e.target.value)} id="role-selector">
+            <select value={role} onChange={(e) => setRole(e.target.value)} id="role-selector">
               <option value="select" hidden>Seleccionar</option>
               {roles.map((roles, index) => (
                 <option value={roles.id} key={index}>{roles.name}</option>

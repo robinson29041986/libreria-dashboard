@@ -12,7 +12,7 @@ import NotFound from './views/NotFound';
 import Login from './views/Login';
 import Register from './views/Register';
 import Categories from './views/Categories';
-import User from "./views/User";
+import Users from "./views/Users";
 import Order from "./views/Order";
 
 const App = () => {
@@ -27,7 +27,7 @@ const App = () => {
           <Route path='products' element={<Products />} />
           <Route path='products/new' element={<NewProduct />} />
           <Route path='categories' element={<Categories />} />
-          <Route path='users' element={<User />} />
+          <Route path='users' element={<Users />} />
           <Route path='orders' element={<Order />} />
         </Route>
       </Route>

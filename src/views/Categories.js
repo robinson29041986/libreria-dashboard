@@ -12,7 +12,6 @@ const Categories = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [categories, setCategories] = useState([]);
-  const [deleteTitle, setDeleteTitle] = useState('');
   const [search, setSearch] = useState('');
   const [categoryId, setCategoryId] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -147,9 +146,9 @@ const Categories = () => {
     setDescription('');
   }
 
-  const handleDelete = (id, title) => {
+  const handleDelete = (id, name) => {
     setCategoryId(id);
-    setDeleteTitle(title);
+    setName(name);
     setShowModal(true);
   }
 
@@ -267,8 +266,8 @@ const Categories = () => {
       {showModal && (
         <ConfirmationModal
 
-          title='Confirmar eliminacion'
-          message={`¿Desea Eliminar la Categoria ${deleteTitle}?`}
+          title={`Eliminar ${name.toLowerCase()}`}
+          message={`¿Desea Eliminar la Categoria ${name.toLowerCase()}?`}
           onClose={handleClose}
           onConfirm={handleConfirm}
           onCancel={handleCancel}

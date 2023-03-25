@@ -176,7 +176,7 @@ td {
 /* Contenedor */
 .container {
   margin: auto;
-  max-width: 1120px;
+  max-width: 1150px;
   padding: 0px 20px;
 }
 
@@ -298,7 +298,8 @@ label {
   margin-bottom: 8px;
 }
 
-input {
+input,
+textarea {
   background-color: var(--global--color-white);
   font-family: inherit;
   font-size: 16px;
@@ -308,6 +309,40 @@ input {
   outline: none;
 }
 
+select {
+  width: 348px;
+  font-family: inherit;
+  font-size: 16px;
+  padding: 4px;
+  border: 1px solid #d0d4db;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  outline: none;
+}
+
+.form_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.form_wrapper input {
+  margin-bottom: 24px;
+}
+
+.form_wrapper a {
+  font-size: 14px;
+  text-align: center;
+  color: var(--global--color-primary);
+  margin-top: 12px;
+}
+
+.form_wrapper textarea {
+  margin-bottom: 24px;
+}
+
+.form_wrapper button {
+  margin-top: 8px;
+}
 
 /* ==========================================================================
 7. Tarjetas
@@ -320,6 +355,17 @@ input {
   border-radius: 16px;
   overflow: hidden;
 }
+
+.card_form {
+  width: 400px;
+  padding: 48px 40px;
+  margin: auto;
+  background-color: var(--global--color-white);
+  box-shadow: rgb(0 0 0 / 12%) 0px 2px 6px 0px;
+  border: 1px solid #e6edf4;
+  border-radius: 16px;
+}
+
 
 /* ==========================================================================
 7. Tablas
@@ -1047,4 +1093,26 @@ textarea {
 
 .Profile-form button {
   margin-top: 24px;
+}
+
+
+/* ==========================================================================
+18. Users
+========================================================================== */
+
+.users_options {
+  display: flex;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.users_header {
+  padding: 16px 32px;
+}
+
+.users_message {
+  padding: 32px 32px;
+  border-top: 1px solid #e6edf4;
 }

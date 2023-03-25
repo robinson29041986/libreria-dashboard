@@ -58,7 +58,7 @@ const Products = () => {
         </div>
         <div className='card'>
           <div className='products_header'>
-            <h2 className='Table-heading'>Lista de Libros</h2>
+            <h2 className='title'>Lista de Libros</h2>
           </div>
           {
             !products || products.length <= 0 ? (

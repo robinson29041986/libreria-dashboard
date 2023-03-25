@@ -87,7 +87,7 @@ const NavBar = () => {
               </li>
               <hr className="header_hr" />
               <li className="header_popup--li">
-                <button className="btn_logout" onClick={signOut}><LogOut className="header_icon" />Salir</button>
+                <button className="btn_logout" onClick={signOut}><LogOut className="header_icon" />Cerrar Sesion</button>
               </li>
             </ul>
           </div>

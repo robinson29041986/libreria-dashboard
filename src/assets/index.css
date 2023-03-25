@@ -234,7 +234,7 @@ td {
 
 .btn-primary {
   background-color: var(--global--color-primary);
-  color: var(--global--color-black);
+  color: var(--global--color-white);
   border: 1px solid var(--global--color-primary);
   border-radius: 12px;
 }

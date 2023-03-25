@@ -22,10 +22,11 @@ const Users = () => {
   const [editModal, setEditModal] = useState(false);
 
   useEffect(() => {
-    /* Obtenemos los roles de empleados */
+    /* Obtenemos los usuarios registrados*/
     const getUsers = async () => {
       const response = await axios.get(USERS_URL);
       setUsers(response.data);
+      console.log(response.data)
     }
     /* Llamamos la función */
     getUsers()
@@ -35,7 +36,7 @@ const Users = () => {
 
 
   useEffect(() => {
-    /* Obtenemos los roles de empleados */
+    /* Obtenemos los roles de los usuarios */
     const getRoles = async () => {
       const response = await axios.get(ROLES_URL);
       setRoles(response.data);
@@ -67,7 +68,6 @@ const Users = () => {
         setViewModal(false);
         const response = await axios.get(USERS_URL);
         setUsers(response.data);
-        console.log(response.data)
       }
 
       /* Limpiamos el formulario */
@@ -98,8 +98,8 @@ const Users = () => {
       );
       if (response?.status === 200) {
         setEditModal(false);
-        const resp = await axios.get(USERS_URL);
-        setUsers(resp.data);
+        const response = await axios.get(USERS_URL);
+        setUsers(response.data);
       }
 
       /* Vemos la respuesta del servidor */
@@ -127,12 +127,12 @@ const Users = () => {
   const handleConfirm = async () => {
     setShowModal(false);
     try {
-      const resp = await axios.delete(`${USERS_URL}${userId}`);
-      console.log(resp.data);
+      const response = await axios.delete(`${USERS_URL}${userId}`);
+      console.log(response.data);
       /* Actualizamos la tabla */
-      if (resp.status === 204) {
-        const resp = await axios.get(USERS_URL);
-        setUsers(resp.data);
+      if (response.status === 204) {
+        const response = await axios.get(USERS_URL);
+        setUsers(response.data);
         setName('');
       }
     } catch (error) {
@@ -157,7 +157,6 @@ const Users = () => {
     setRole(role);
     setEmail(email);
     setPassword(pass);
-    console.log(role);
   }
 
   const handleCancelEdit = () => {
@@ -196,7 +195,7 @@ const Users = () => {
           {
             !users || users.length <= 0 ? (
               <div className="users_message">
-                <p>No se ha encontrado ningún usuario...</p>
+                <p>Ningún Usuario Encontrado...</p>
               </div>
             ) : (
               <table className='table_list'>
@@ -220,7 +219,7 @@ const Users = () => {
                         <td>{users.id}</td>
                         <td className='table_name'>{users.name}</td>
                         <td>{users.email}</td>
-                        {/*  <td>{users.role.name}</td> */}
+                        <td>{users.role.name}</td>
                         <td className='table_actions'>
                           <Edit2 className='table_icon'
                             onClick={() => handleEdit(
@@ -255,7 +254,7 @@ const Users = () => {
               required
             />
             <label htmlFor='roles'>Rol</label>
-            <select value={role} onChange={(e) => setRole(e.target.value)} id="role-selector">
+            <select onChange={(e) => setRole(e.target.value)} id="role-selector">
               <option value="select" hidden>Seleccionar</option>
               {roles.map((roles, index) => (
                 <option value={roles.id} key={index}>{roles.name}</option>

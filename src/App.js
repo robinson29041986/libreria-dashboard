@@ -7,7 +7,6 @@ import Profile from "./views/Profile";
 import Settings from "./views/Settings";
 import Notification from "./views/Notifications";
 import Products from './views/Products';
-import NewProduct from './views/NewProduct';
 import NotFound from './views/NotFound';
 import Login from './views/Login';
 import Register from './views/Register';
@@ -25,7 +24,6 @@ const App = () => {
           <Route path='settings' element={<Settings />} />
           <Route path='notification' element={<Notification />} />
           <Route path='products' element={<Products />} />
-          <Route path='products/new' element={<NewProduct />} />
           <Route path='categories' element={<Categories />} />
           <Route path='users' element={<Users />} />
           <Route path='orders' element={<Order />} />

@@ -130,7 +130,7 @@ const Users = () => {
       const response = await axios.delete(`${USERS_URL}${userId}`);
       console.log(response.data);
       /* Actualizamos la tabla */
-      if (response.status === 204) {
+      if (response.status === 200) {
         const response = await axios.get(USERS_URL);
         setUsers(response.data);
         setName('');

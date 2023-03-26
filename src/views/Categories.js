@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import '../assets/index.css';
 import axios from '../api/axios';
 import { Edit2, Trash2 } from '@easy-eva-icons/react';
 import ConfirmationModal from '../components/ConfirmationModal';

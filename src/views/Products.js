@@ -62,8 +62,8 @@ const Products = () => {
     formData.append('image', image);
     formData.append('name', name);
     formData.append('description', description);
-    formData.append('price', price);
     formData.append('category_id', category);
+    formData.append('price', price);
     formData.append('autor', autor);
     formData.append('isbn', isbn);
     formData.append('stock', stock);
@@ -113,9 +113,9 @@ const Products = () => {
 
     formData.append('image', image);
     formData.append('name', name);
-    formData.append('description', description);
-    formData.append('price', price);
+    formData.append('description', description)
     formData.append('category_id', category);
+    formData.append('price', price);
     formData.append('autor', autor);
     formData.append('isbn', isbn);
     formData.append('stock', stock);
@@ -142,9 +142,9 @@ const Products = () => {
       setImage('');
       setName('');
       setDescription('');
+      setPrice('');
       setAutor('');
       setIsbn('');
-      setPrice('');
       setStock('');
 
     } catch (error) {
@@ -194,7 +194,7 @@ const Products = () => {
     setName(name);
     setDescription(description);
     setCategory(category);
-    setCategory(price);
+    setPrice(price);
     setAutor(autor);
     setIsbn(isbn);
     setStock(stock);
@@ -203,14 +203,14 @@ const Products = () => {
   const handleCancelEdit = () => {
     setEditModal(false);
     /* Limpiamos el formulario */
-    setImage(null);
-    setName(null);
-    setDescription(null);
-    setCategory(null);
-    setPrice(null);
-    setAutor(null);
-    setIsbn(null);
-    setStock(null);
+    setImage('');
+    setName('');
+    setDescription('');
+    setCategory('');
+    setPrice('');
+    setAutor('');
+    setIsbn('');
+    setStock('');
   }
 
   const handleDelete = (id, name) => {
@@ -250,9 +250,9 @@ const Products = () => {
                     <th>Imagen</th>
                     <th>Nombre</th>
                     <th>Categoria</th>
+                    <th>Precio</th>
                     <th>Autor</th>
                     {/* <th>Isbn</th> */}
-                    <th>Precio</th>
                     <th>Stock</th>
                     <th>Acciones</th>
                   </tr>
@@ -266,25 +266,34 @@ const Products = () => {
                     }).map((products, index) => (
                       <tr key={index}>
                         <td>
-                          <img className='table_image' src={`http://localhost:5000/public/uploads/${products.image}`}
+                          <img className='table_image'
+                            src={`http://localhost:5000/public/uploads/${products.image}`}
                             alt="{products.name}" />
                         </td>
                         <td className='table_name'>{products.name}</td>
+                        {/* <td>{products.description}</td> */}
                         <td>{products.category.name}</td>
+                        <td>{parseInt(products.price).toLocaleString('es-CO',
+                          {
+                            style: 'currency',
+                            currency: 'COP',
+                            minimumFractionDigits: 0
+                          })}</td>
                         <td>{products.autor}</td>
                         {/* <td>{products.isbn}</td> */}
-                        <td>{products.price}</td>
                         <td>{products.stock}</td>
                         <td className='table_actions'>
                           <Edit2 className='table_icon'
                             onClick={() => handleEdit(
+                              products.id,
+                              products.image,
                               products.name,
+                              products.description,
                               products.category.id,
                               products.price,
                               products.autor,
                               products.isbn,
                               products.stock,
-                              ''
                             )} />
                           <Trash2 className='table_icon table_icon--del'
                             onClick={() => handleDelete(products.id, products.name)} />
@@ -326,6 +335,22 @@ const Products = () => {
               rows="5" cols="33"
               placeholder='Descripción'
             />
+            <label htmlFor='category'>Categoría</label>
+            <select onChange={(e) => setCategory(e.target.value)} id="selector">
+              <option value="select" hidden>Seleccionar</option>
+              {categories.map((categories, index) => (
+                <option value={categories.id} key={index}>{categories.name}</option>
+              ))}
+            </select>
+            <label htmlFor='price'>Precio</label>
+            <input
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              type="number"
+              id="price"
+              placeholder='Precio'
+              required
+            />
             <label htmlFor='autor'>Autor</label>
             <input
               value={autor}
@@ -342,22 +367,6 @@ const Products = () => {
               type="number"
               id="isbn"
               placeholder='Isbn'
-              required
-            />
-            <label htmlFor='category'>Categoría</label>
-            <select onChange={(e) => setCategory(e.target.value)} id="selector">
-              <option value="select" hidden>Seleccionar</option>
-              {categories.map((categories, index) => (
-                <option value={categories.id} key={index}>{categories.name}</option>
-              ))}
-            </select>
-            <label htmlFor='price'>Precio</label>
-            <input
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              type="number"
-              id="price"
-              placeholder='Precio'
               required
             />
             <label htmlFor='stock'>Stock</label>
@@ -402,6 +411,21 @@ const Products = () => {
               rows="5" cols="33"
               placeholder='Descripción'
             />
+            <label htmlFor='category'>Categoría</label>
+            <select value={category} onChange={(e) => setCategory(e.target.value)} id="selector">
+              {categories.map((categories, index) => (
+                <option value={categories.id} key={index}>{categories.name}</option>
+              ))}
+            </select>
+            <label htmlFor='price'>Precio</label>
+            <input
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              type="number"
+              id="price"
+              placeholder='Precio'
+              required
+            />
             <label htmlFor='autor'>Autor</label>
             <input
               value={autor}
@@ -418,21 +442,6 @@ const Products = () => {
               type="number"
               id="isbn"
               placeholder='Isbn'
-              required
-            />
-            <label htmlFor='category'>Categoría</label>
-            <select value={category} onChange={(e) => setCategory(e.target.value)} id="selector">
-              {categories.map((categories, index) => (
-                <option value={categories.id} key={index}>{categories.name}</option>
-              ))}
-            </select>
-            <label htmlFor='price'>Precio</label>
-            <input
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              type="number"
-              id="price"
-              placeholder='Precio'
               required
             />
             <label htmlFor='stock'>Stock</label>

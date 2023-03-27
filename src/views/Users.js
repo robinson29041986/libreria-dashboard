@@ -186,7 +186,7 @@ const Users = () => {
               placeholder="Buscar..."
             />
           </form>
-          <button className='btn btn-primary' onClick={handleCreate}>Agregar Usuario</button>
+          <button className='btn btn-primary' onClick={handleCreate}>Nuevo Usuario</button>
         </div>
         <div className="card">
           <div className="users_header">

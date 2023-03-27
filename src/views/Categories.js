@@ -164,7 +164,7 @@ const Categories = () => {
               placeholder="Buscar..."
             />
           </form>
-          <button to='/categories/new' className='btn btn-primary' onClick={handleCreate}> +Crear Nueva Categoria</button>
+          <button to='/categories/new' className='btn btn-primary' onClick={handleCreate}> Nueva Categoria</button>
         </div>
         <div className='card'>
           <div className='categories_header'>
@@ -179,7 +179,6 @@ const Categories = () => {
               <table className='table_list'>
                 <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Descripcion</th>
                     <th>Acciones</th>
@@ -193,7 +192,6 @@ const Categories = () => {
                         : category.name.toLowerCase().includes(search);
                     }).map((categories, index) => (
                       <tr key={index}>
-                        <td>{categories.id}</td>
                         <td className='table_name'>{categories.name}</td>
                         <td>{categories.description}</td>
                         <td className='table_actions'>
@@ -265,7 +263,7 @@ const Categories = () => {
       {showModal && (
         <ConfirmationModal
 
-          title={`Eliminar ${name.toLowerCase()}`}
+          title="Eliminar Categoria"
           message={`¿Desea Eliminar la Categoria ${name.toLowerCase()}?`}
           onClose={handleClose}
           onConfirm={handleConfirm}

@@ -232,7 +232,7 @@ const Products = () => {
               placeholder="Buscar..."
             />
           </form>
-          <button className='btn btn-primary' onClick={handleCreate}>Agregar Productos</button>
+          <button className='btn btn-primary' onClick={handleCreate}>Nuevo Producto</button>
         </div>
         <div className="card">
           <div className="products_header">
@@ -278,7 +278,6 @@ const Products = () => {
                         <td className='table_actions'>
                           <Edit2 className='table_icon'
                             onClick={() => handleEdit(
-                              products.id,
                               products.name,
                               products.category.id,
                               products.price,
@@ -300,7 +299,7 @@ const Products = () => {
         </div>
       </div>
       {viewModal && (
-        <ModalForm title="Agregar Productos" onClose={handleCancelCreate}>
+        <ModalForm title="Crear Producto" onClose={handleCancelCreate}>
           <form onSubmit={handleSubmit} className="form_wrapper">
             <label htmlFor='image'>Imagen</label>
             <input

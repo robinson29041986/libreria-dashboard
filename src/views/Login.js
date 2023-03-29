@@ -5,6 +5,7 @@ import '../assets/index.css';
 import Logo from '../assets/logo.png'
 
 import axios from '../api/axios';
+import { Lock, Person } from "@easy-eva-icons/react";
 const LOGIN_URL = '/login';
 
 const Login = () => {
@@ -70,6 +71,7 @@ const Login = () => {
           </Link>
         </div>
         <form onSubmit={handleSubmit} className="login_form">
+          <Person className="header_icon" />
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -79,6 +81,7 @@ const Login = () => {
             id="email"
             required
           />
+          <Lock className="header_icon" />
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}

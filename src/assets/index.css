@@ -389,11 +389,13 @@ select {
 
 .table_list td {
   color: var(--global--color-links);
-  padding: 15px 32px;
+  padding: 15px 29px;
   vertical-align: middle;
 }
 
-.table_actions {}
+.table_actions {
+  justify-items: right;
+}
 
 .table_name {
   font-weight: 500;

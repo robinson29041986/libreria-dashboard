@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from '../api/axios';
 import { Trash2, Edit2 } from "@easy-eva-icons/react";
+import Paginator from '../components/Paginator';
 import ConfirmationModal from "../components/ConfirmationModal";
 import ModalForm from '../components/ModalForm';
 import ModalEdit from '../components/ModalEdit';
 
-const PRODUCTS_URL = '/products';
+const PRODUCTS_URL = '/products/';
 const CATEGORIES_URL = '/categories';
 
 const Products = () => {
@@ -21,6 +22,7 @@ const Products = () => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [productId, setProductId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
@@ -52,6 +54,19 @@ const Products = () => {
       /* Obtenemos el error */
       .catch(console.error);
   }, []);
+
+  /* Paginacion */
+
+  var itemsPerPage = 1;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const PaginatedData = products.slice(startIndex, endIndex);
 
   /* Función para el metodo POST */
   const handleSubmit = async (e) => {
@@ -239,7 +254,7 @@ const Products = () => {
             <h2 className='title'>Lista de Libros</h2>
           </div>
           {
-            !products || products.length <= 0 ? (
+            !PaginatedData || PaginatedData.length <= 0 ? (
               <div className="products_message">
                 <p>Ningún Producto Encontrado...</p>
               </div>
@@ -259,41 +274,41 @@ const Products = () => {
                 </thead>
                 <tbody>
                   {
-                    products.filter((product) => {
+                    PaginatedData.filter((product) => {
                       return search.toLowerCase() === ''
                         ? product
                         : product.name.toLowerCase().includes(search);
-                    }).map((products, index) => (
+                    }).map((PaginatedData, index) => (
                       <tr key={index}>
                         <td>
                           <img className='table_image'
-                            src={`http://localhost:5000/public/uploads/${products.image}`}
-                            alt="{products.name}" />
+                            src={`http://localhost:5000/public/uploads/${PaginatedData.image}`}
+                            alt="{PaginatedData.name}" />
                         </td>
-                        <td className='table_name'>{products.name}</td>
+                        <td className='table_name'>{PaginatedData.name}</td>
                         {/* <td>{products.description}</td> */}
-                        <td>{products.category.name}</td>
-                        <td>{parseInt(products.price).toLocaleString('es-CO',
+                        <td>{PaginatedData.category.name}</td>
+                        <td>{parseInt(PaginatedData.price).toLocaleString('es-CO',
                           {
                             style: 'currency',
                             currency: 'COP',
                             minimumFractionDigits: 0
                           })}</td>
-                        <td>{products.autor}</td>
+                        <td>{PaginatedData.autor}</td>
                         {/* <td>{products.isbn}</td> */}
-                        <td>{products.stock}</td>
+                        <td>{PaginatedData.stock}</td>
                         <td className='table_actions'>
                           <Edit2 className='table_icon'
                             onClick={() => handleEdit(
-                              products.id,
-                              products.image,
-                              products.name,
-                              products.description,
-                              products.category.id,
-                              products.price,
-                              products.autor,
-                              products.isbn,
-                              products.stock,
+                              PaginatedData.id,
+                              PaginatedData.image,
+                              PaginatedData.name,
+                              PaginatedData.description,
+                              PaginatedData.category.id,
+                              PaginatedData.price,
+                              PaginatedData.autor,
+                              PaginatedData.isbn,
+                              PaginatedData.stock,
                             )} />
                           <Trash2 className='table_icon table_icon--del'
                             onClick={() => handleDelete(products.id, products.name)} />
@@ -305,6 +320,14 @@ const Products = () => {
               </table>
             )
           }
+          <div className="products_pagination">
+            <Paginator
+              currentPage={currentPage}
+              totalItems={products.length}
+              itemsPerPage={itemsPerPage}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </div>
       </div>
       {viewModal && (
@@ -461,7 +484,7 @@ const Products = () => {
       {showModal && (
         <ConfirmationModal
           title="Eliminar Producto"
-          message={`¿Desea eliminar el Producto ${name}?`}
+          message={`¿Desea eliminar el Producto ${products.name}?`}
           onClose={handleClose}
           onConfirm={handleConfirm}
           onCancel={handleCancel}

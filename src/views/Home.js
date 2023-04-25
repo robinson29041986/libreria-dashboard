@@ -1,4 +1,3 @@
-import '../assets/index.css'
 const Home = () => {
 
   return (

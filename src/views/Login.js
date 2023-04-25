@@ -71,25 +71,29 @@ const Login = () => {
           </Link>
         </div>
         <form onSubmit={handleSubmit} className="login_form">
-          <Person className="header_icon" />
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            /* autoComplete="none" */
-            placeholder="Correo eléctronico"
-            id="email"
-            required
-          />
-          <Lock className="header_icon" />
-          <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            placeholder="********"
-            id="password"
-            required
-          />
+          <div className="login_ico">
+            <Person className="header_icon" />
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              /* autoComplete="none" */
+              placeholder="Correo eléctronico"
+              id="email"
+              required
+            />
+          </div>
+          <div className="login_ico">
+            <Lock className="header_icon" />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="********"
+              id="password"
+              required
+            />
+          </div>
           <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
           <button type="submit" className="btn btn-primary">Iniciar sesión</button>
           <Link to="/register">Crear cuenta</Link>
